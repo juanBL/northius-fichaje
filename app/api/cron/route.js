@@ -8,23 +8,23 @@ export async function GET(request) {
     console.log('Failed to get sharedKey')
     return new Response('Failed to get sharedKey', { status: 200 });
   }
-  console.info(`OK`);
+  console.info(`Start`);
 
   const cmd = 'npx playwright test fichar.spec.js';
 
   exec(cmd, (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error: ${error.message}`);
+      console.info(`Error: ${error.message}`);
       return;
     }
 
     if (stderr) {
-      console.error(`Stderr: ${stderr}`);
+      console.info(`Stderr: ${stderr}`);
       return;
     }
 
-    console.log(`Command output: ${stdout}`);
+    console.info(`Command output: ${stdout}`);
   });
-
+  console.info(`End`);
   return new Response('Successfully got sharedKey', { status: 200 });
 }
