@@ -10,21 +10,14 @@ export async function GET(request) {
   }
   console.info(`Start`);
 
-  const cmd = 'npx playwright test fichar.spec.js';
-
-  exec(cmd, (error, stdout, stderr) => {
+  let co = exec('npm run test:e2e', (error, stdout, stderr) => {
     if (error) {
-      console.info(`Error: ${error.message}`);
+      console.error(`Error al ejecutar las pruebas de Playwright: ${error}`);
       return;
     }
-
-    if (stderr) {
-      console.info(`Stderr: ${stderr}`);
-      return;
-    }
-
-    console.info(`Command output: ${stdout}`);
+    console.log(`Resultado de las pruebas de Playwright:\n${stdout}`);
   });
+
   console.info(`End`);
   return new Response('Successfully got sharedKey', { status: 200 });
 }
